@@ -8,6 +8,7 @@ class AuthPageController extends Template
 {
     public function index()
     {
-        $this->view->render('authUsers', []);
+//        $this->view->render('authUsers', []);
+        $this->view->twigLoad('authUsers.php', []);
     }
 }

@@ -18,6 +18,7 @@ class UserPageController extends Template
 //      Get data from DB and render its to page
         $files = UserModel::all();
         $data = $files->toArray();
-        $this->view->render('list', $data);
+//        $this->view->render('list', $data);
+        $this->view->twigLoad('list.php', ["data" =>$data] );
     }
 }

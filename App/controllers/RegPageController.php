@@ -8,6 +8,7 @@ class RegPageController extends Template
 {
     public function index()
     {
-        $this->view->render('regUsers.html', []);
+//        $this->view->render('regUsers.html', []);
+        $this->view->twigLoad('regUsers.html.php', []);
     }
 }

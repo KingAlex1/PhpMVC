@@ -20,13 +20,8 @@ class FilePageController extends Template
         }
         $orders = UserModel::with('files')->get()->where('id', '=', $_SESSION['user']);
         $data = $orders->toArray();
-
 //      $this->view->render('filelist.html', $data);
-
-
-         $key =  "dsdssdsd";
-
-        $this->view->twigLoad('filelist.html', ["data" =>$data] );
+        $this->view->twigLoad('filelist.php', ["data" =>$data] );
 
     }
 }

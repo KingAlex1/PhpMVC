@@ -86,6 +86,10 @@ class UserController
     public function deleteUser()
     {
         $user = UserModel::find($this->request->post('id'));
+//        $user = UserModel::with('files')->get()->where('id', '=',
+            $this->request->post('id');
+//        echo "<pre>";
+//        var_dump($user);
         $delUser = $user->delete();
         $delPic = $this->request->post('pic');
         unlink("photos/$delPic");

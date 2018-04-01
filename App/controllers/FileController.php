@@ -38,7 +38,6 @@ class FileController
         $order = FileModel::find($this->request->post('id'));
         $delOrder = $order->delete();
         $delPic = $this->request->post('pic');
-        print_r($delPic);
         unlink("photos/$delPic");
         if ($delOrder) {
             header('location:/FilePageController');
