@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../public/style/css/bootstrap.min.css" rel="stylesheet">
+
+
+    <!-- Custom styles for this template -->
+    <link href="../../public/style/css/starter-template.css" rel="stylesheet">
+
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+<div>
+
+    {% include 'nav.twig' %}
+
+</div>
+
+<div class="container">
+    <div class="form-order">
+        <form enctype="multipart/form-data" class="form-horizontal" action="./index.php"
+              method="post">
+            <div class="form-group">
+                <label for="inputFile" class="col-sm-2 control-label">Название</label>
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" id="inputFile"
+                           name="filename"
+                           placeholder="name">
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="inputDesc" class="col-sm-2 control-label">Описание</label>
+                <div class="col-sm-10">
+                    <textarea cols="3" rows="3" class="form-control"
+                              id="inputDesc"
+                              name="desc">
+                    </textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="formImage" class="col-sm-2 control-label">Фото</label>
+                <div class="col-sm-10">
+                    <input
+                            type="file"
+                            name="image"
+                            class="form-control"
+                            id="formImage"
+                            placeholder="картинка">
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <label for="inputSub" class="col-sm-2 control-label"></label>
+                <div class="col-sm-10">
+                    <input type="submit" class="form-control" id="inputSub"
+                           name="submit"
+                           placeholder="Отправить">
+                </div>
+            </div>
+        </form>
+        <div class="section_ava">
+            <?php foreach ($data as $key => $item) : ?>
+            <img class="user_ava" src="../photos/<?=$item['photo']?>" width="180"
+                 height="180">
+            <?php endforeach; ?>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="container">
+    <table class="table table-bordered">
+        <tr>
+            <th>Название файла</th>
+            <th>Фотография</th>
+            <th>Описание</th>
+            <th>Действия</th>
+        </tr>
+
+        {% include 'photolist.twig' %}
+
+        <!--        --><?php //foreach ($data as $key => $item) : ?>
+        <!--            --><?php //if ($item['files']) : ?>
+        <!--                --><?php //foreach ($item['files'] as $value => $val) : ?>
+        <!--                    <tr>-->
+        <!---->
+        <!---->
+        <!--                        <td>--><?//= $val['filename'] ?><!--</td>-->
+        <!--                        <td><img class="image" src="../photos/--><?//= $val['image'] ?>
+        <!-- "-->
+        <!--                                 alt=" --><?//= $val['image'] ?>
+        <!--" width="100" height="100">-->
+        <!--                            <img></td>-->
+        <!---->
+        <!--                        <td>--><?//= $val['desc'] ?><!--</td>-->
+        <!--                        <td>-->
+        <!--                            <form name="ddd" action="../../index.php" method="post">-->
+        <!--                                <input type="hidden" name="id" value="--><?//= $val['id'] ?>
+        <!--">-->
+        <!--                                <input type="hidden" name="pic"-->
+        <!--                                       value="--><?//= $val['photo'] ?>
+        <!--">-->
+        <!--                                <input id="--><?//= $val['id'] ?><!--"-->
+        <!--                                       name="del"-->
+        <!--                                       type="submit"-->
+        <!--                                       value="удалить заказ">-->
+        <!--                            </form>-->
+        <!--                        </td>-->
+        <!--                    </tr>-->
+        <!--                --><?php //endforeach; ?>
+        <!--            --><?php //endif; ?>
+        <!--        --><?php //endforeach; ?>
+    </table>
+</div><!-- /.container -->
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="../../../public/js/main.js"></script>
+<script src="../../../public/js/bootstrap.min.js"></script>
+
+</body>
+</html>

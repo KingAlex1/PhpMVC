@@ -1,0 +1,46 @@
+body {
+  padding-top: 50px;
+}
+.starter-template {
+  padding: 40px 15px;
+  text-align: center;
+}
+
+.form-container{
+  margin-top: 5%;
+  width: 100%;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+}
+
+.form-order{
+  margin-top: 5%;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+
+}
+.form-horizontal {
+  width: 35%;
+}
+
+.order {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}
+
+.sign_out {
+  align-items: right;
+}
+
+.user_ava{
+  border-radius: 50%;
+}
+
+.section_ava{
+ align-self: center;
+
+}
