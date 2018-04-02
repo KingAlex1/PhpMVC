@@ -30,25 +30,24 @@ class UserController
             if ($this->request->post('password') === $this->request->post('checkPassword')) {
                 $clearData = \GUMP::is_valid([
                     'login' => $this->request->post('login'),
-                    'password' => $this->getHash($this->request->post('password'), $this->sold),
+                    'password' => $this->request->post('password'),
                     'name' => $this->request->post('name'),
                     'age' => $this->request->post('age'),
                     'description' => $this->request->post('description') ?? 'noDescription',
                     'photo' => $this->sold . $this->request->file('image')['name'],
                     'sold' => $this->sold
-                ], ['login' => 'required|alpha_numeric',
-                    'password' => 'required|max_len,100|min_len,2',
-                    'name' => 'required|alpha_numeric',
-                    'age' => 'max_len,3',
+                ], ['login' => 'required|alpha_numeric|min_len,4',
+                    'password' => 'required|alpha_numeric|min_len,4',
+                    'name' => 'required|alpha_numeric|min_len,4',
+                    'age' => 'required|max_len,3',
                     'description' => 'max_len,200',
                     'photo' => 'required',
                     'sold' => 'required'
                 ]);
-
             } else {
-                throw new \Exception("Ошибка !!! проверьте введенные данные");
+                throw new \Exception("Ошибка !!! Вы ввели разные пароли ,  попробуйте еще раз");
             }
-            if ($clearData) {
+            if ($clearData === true) {
                 $validData = Validation::checkData([
                     'login' => $this->request->post('login'),
                     'password' => $this->getHash($this->request->post('password'), $this->sold),
@@ -59,33 +58,26 @@ class UserController
                     'sold' => $this->sold
                 ]);
             } else {
-                throw new \Exception('Ошибка !!! Вы ввели разные пароли, попробуйте еще раз.');
+                throw new \Exception($clearData[0]);
+            }
+            if ($validData) {
+                $user = UserModel::create($validData);
+                $serviceAuth = new Auth();
+                $serviceAuth->login($user['id']);
+                header('location:/UserPageController');
             }
             if ($validData['photo']) {
-//                var_dump($_FILES['image']['tmp_name']);
-//               die();
                 move_uploaded_file($_FILES['image']['tmp_name'],
                     'photos/' . $this->sold . $_FILES['image']['name']);
             } else {
                 throw new \Exception("Упс, Загрузите картинку");
             }
-            if ($validData) {
-                $user = UserModel::create($validData);
-            } else {
-                throw new \Exception('Ошибка !!! Вы ввели не валидные данные , попробуйте еще раз.');
-            }
         } catch (\Exception $e) {
             require "App/core/errors/404.php";
         }
-
-//      Authorization
-        $serviceAuth = new Auth();
-        $serviceAuth->login($user['id']);
-        header('location:/UserPageController');
     }
 
-    public
-    function singIn()
+    public function singIn()
     {
 //      Get data from DB
         try {
@@ -114,15 +106,24 @@ class UserController
     public function deleteUser()
     {
         $user = UserModel::find($this->request->post('id'));
-//        $user = UserModel::with('files')->get()->where('id', '=',
-//  $this->request->post('id'));
+        $userPic = UserModel::with('files')->get()->where('id', '=',
+        $this->request->post('id'));
+
+        foreach ($userPic as $key=>$value){
+            foreach ($value['files'] as $item => $i ){
+                $i->delete();
+                $delPic = $i['image'];
+                echo $delPic;
+                unlink("photos/$delPic");
+            }
+        }
         $delUser = $user->delete();
-        $delPic = $this->request->post('pic');
-        unlink("photos/$delPic");
+        $delAva = $this->request->post('pic');
+        unlink("photos/$delAva");
         if ($delUser) {
             header('location:UserPageController');
         }
-        if ($_SESSION['user'] = $user->toArray()['id']) {
+        if ($_SESSION['user'] === $user->toArray()['id']) {
             $serviceAuth = new Auth();
             $serviceAuth->logout();
         }
