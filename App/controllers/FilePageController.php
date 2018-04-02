@@ -10,7 +10,7 @@ use App\models\UserModel;
 
 class FilePageController extends Template
 {
-    use TwigTemplates;
+
 
     public function index()
     {
