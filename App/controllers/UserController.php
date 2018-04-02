@@ -28,6 +28,27 @@ class UserController
     {
         try {
             if ($this->request->post('password') === $this->request->post('checkPassword')) {
+                $clearData = \GUMP::is_valid([
+                    'login' => $this->request->post('login'),
+                    'password' => $this->getHash($this->request->post('password'), $this->sold),
+                    'name' => $this->request->post('name'),
+                    'age' => $this->request->post('age'),
+                    'description' => $this->request->post('description') ?? 'noDescription',
+                    'photo' => $this->sold . $this->request->file('image')['name'],
+                    'sold' => $this->sold
+                ], ['login' => 'required|alpha_numeric',
+                    'password' => 'required|max_len,100|min_len,2',
+                    'name' => 'required|alpha_numeric',
+                    'age' => 'max_len,3',
+                    'description' => 'max_len,200',
+                    'photo' => 'required',
+                    'sold' => 'required'
+                ]);
+
+            } else {
+                throw new \Exception("Ошибка !!! проверьте введенные данные");
+            }
+            if ($clearData) {
                 $validData = Validation::checkData([
                     'login' => $this->request->post('login'),
                     'password' => $this->getHash($this->request->post('password'), $this->sold),
@@ -37,7 +58,6 @@ class UserController
                     'photo' => $this->sold . $this->request->file('image')['name'],
                     'sold' => $this->sold
                 ]);
-
             } else {
                 throw new \Exception('Ошибка !!! Вы ввели разные пароли, попробуйте еще раз.');
             }
@@ -57,13 +77,15 @@ class UserController
         } catch (\Exception $e) {
             require "App/core/errors/404.php";
         }
+
 //      Authorization
         $serviceAuth = new Auth();
         $serviceAuth->login($user['id']);
         header('location:/UserPageController');
     }
 
-    public function singIn()
+    public
+    function singIn()
     {
 //      Get data from DB
         try {
