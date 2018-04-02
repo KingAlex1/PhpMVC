@@ -7,7 +7,7 @@
     <h2>Список заказов</h2>
     <div class="form-order">
         {% include 'fileForm.twig'%}
-        {% include 'avatar.twig' %}
+
     </div>
     {% include 'photoList.twig' %}
 </div>

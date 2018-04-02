@@ -17,6 +17,7 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/translation" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/twig/twig" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/wixel/gump" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
@@ -38,6 +39,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
           <root url="file://$MODULE_DIR$/vendor/symfony/translation" />
           <root url="file://$MODULE_DIR$/vendor/twig/twig" />
+          <root url="file://$MODULE_DIR$/vendor/wixel/gump" />
         </CLASSES>
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/composer" />
@@ -55,6 +57,7 @@
           <root url="file://$MODULE_DIR$/vendor/symfony/polyfill-mbstring" />
           <root url="file://$MODULE_DIR$/vendor/symfony/translation" />
           <root url="file://$MODULE_DIR$/vendor/twig/twig" />
+          <root url="file://$MODULE_DIR$/vendor/wixel/gump" />
         </SOURCES>
       </library>
     </orderEntry>

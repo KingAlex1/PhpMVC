@@ -21,7 +21,6 @@ class UserController
 
     public function getHash($password, $sold)
     {
-
         return hash('sha256', $password . $sold);
     }
 
@@ -35,12 +34,20 @@ class UserController
                     'name' => $this->request->post('name'),
                     'age' => $this->request->post('age'),
                     'description' => $this->request->post('description') ?? 'noDescription',
-                    'photo' => $this->request->file('image')['name'],
+                    'photo' => $this->sold . $this->request->file('image')['name'],
                     'sold' => $this->sold
                 ]);
 
             } else {
                 throw new \Exception('Ошибка !!! Вы ввели разные пароли, попробуйте еще раз.');
+            }
+            if ($validData['photo']) {
+//                var_dump($_FILES['image']['tmp_name']);
+//               die();
+                move_uploaded_file($_FILES['image']['tmp_name'],
+                    'photos/' . $this->sold . $_FILES['image']['name']);
+            } else {
+                throw new \Exception("Упс, Загрузите картинку");
             }
             if ($validData) {
                 $user = UserModel::create($validData);
@@ -80,23 +87,22 @@ class UserController
         } catch (\Exception $e) {
             require "App/core/errors/404.php";
         }
-
     }
 
     public function deleteUser()
     {
         $user = UserModel::find($this->request->post('id'));
 //        $user = UserModel::with('files')->get()->where('id', '=',
-            $this->request->post('id');
-//        echo "<pre>";
-//        var_dump($user);
+//  $this->request->post('id'));
         $delUser = $user->delete();
         $delPic = $this->request->post('pic');
         unlink("photos/$delPic");
         if ($delUser) {
             header('location:UserPageController');
         }
+        if ($_SESSION['user'] = $user->toArray()['id']) {
+            $serviceAuth = new Auth();
+            $serviceAuth->logout();
+        }
     }
-
-
 }

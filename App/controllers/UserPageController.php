@@ -6,6 +6,7 @@ use App\core\Auth;
 use App\core\Template;
 use App\models\UserModel;
 
+
 class UserPageController extends Template
 {
     public function index()
@@ -15,10 +16,13 @@ class UserPageController extends Template
         if (!$auth->isAuth()) {
             header('location:/');
         }
-//      Get data from DB and render its to page
+        $userInfo = UserModel::all()->where('id', '=', $_SESSION['user']);
+        $data = $userInfo->toArray();
         $files = UserModel::all();
-        $data = $files->toArray();
-//        $this->view->render('list', $data);
-        $this->view->twigLoad('list.php', ["data" =>$data] );
+        $users = $files->toArray();
+//        echo "<pre>";
+//        var_dump($data);
+//        die();
+        $this->view->twigLoad('list.php', ["data" => $data, "user" => $users]);
     }
 }

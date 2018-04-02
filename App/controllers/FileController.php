@@ -8,24 +8,28 @@ use App\models\FileModel;
 
 class FileController
 {
+    protected $sold;
     public $request;
 
     public function __construct(Request $request)
     {
         $this->request = $request;
+        $this->sold = substr(microtime(), 2, 5);
     }
 
     public function addImage()
     {
-
         $validData = Validation::checkData([
             'user_id' => $this->request->session('user'),
             'filename' => $this->request->post('filename'),
             'desc' => $this->request->post('desc'),
-            'image' => $this->request->file('image')['name']
+            'image' => ($this->sold . $this->request->file('image')['name'])
         ]);
-        echo "<pre>";
-        var_dump($validData);
+        if ($validData['image']) {
+            move_uploaded_file($_FILES['image']['tmp_name'],
+                'photos/' . $this->sold . $_FILES['image']['name']);
+        }
+
         try {
             FileModel::create($validData);
         } catch (\Exception $e) {
@@ -34,13 +38,14 @@ class FileController
         header('location:/FilePageController');
     }
 
-    public function deleteImage(){
+    public function deleteImage()
+    {
         $order = FileModel::find($this->request->post('id'));
         $delOrder = $order->delete();
         $delPic = $this->request->post('pic');
-        unlink("photos/$delPic");
+        unlink("photos/{$delPic}");
         if ($delOrder) {
-            header('location:/FilePageController');
+            header('location:FilePageController');
         }
     }
 

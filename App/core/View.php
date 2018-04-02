@@ -9,10 +9,10 @@ class View
     protected $twig;
     protected $loader;
 
-    public function render(String $filename, array $data)
+    public function render(String $filename, array $data = [])
     {
-  //      extract($data);
-        require_once __DIR__ . "/../views/" . $filename .".php";
+//      extract($data);
+        require_once __DIR__ . "/../views/" . $filename . ".php";
     }
 
     public function __construct($data = [])
@@ -21,9 +21,9 @@ class View
         $this->twig = new Twig_Environment($this->loader);
     }
 
-    public function twigLoad(String $filename, array $data)
+    public function twigLoad(String $filename, array $data = [])
     {
-            echo $this->twig->render($filename, $data);
+        echo $this->twig->render($filename, $data);
     }
 
 

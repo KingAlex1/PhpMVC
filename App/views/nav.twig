@@ -16,8 +16,14 @@
                 <li><a href="RegPageController">Регистрация</a></li>
                 <li><a href="UserPageController">Список пользователей</a></li>
                 <li><a href="FilePageController">Список файлов</a></li>
-                <li class="sign_out" style="position: absolute; right: 0;
-                padding-right: 60px"><a href="PostController/signOut">Sign
+                <li class="nav_avatar" style="position: absolute; left: 76vw;">{% for
+                        key , item in data %}
+                    <img class="avatar" class="user_ava" src="../photos/{{ item.photo }} "
+                          width="180"   height="180">
+                {% endfor %}
+                </li>
+                <li class="sign_out" style="position: absolute; left: 80vw;
+                "><a href="PostController/signOut">Sign
                         Out</a></li>
 
             </ul>
