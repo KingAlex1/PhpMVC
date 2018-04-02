@@ -2,7 +2,6 @@
 
 namespace App\core;
 
-
 class Request
 {
     private $get;
@@ -39,7 +38,7 @@ class Request
 
     public function file($key = null)
     {
-       return $arr = $this->getArr($this->file, $key);
+        return $arr = $this->getArr($this->file, $key);
     }
 
     private function getArr(array $arr, $key = null)

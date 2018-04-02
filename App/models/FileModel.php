@@ -1,7 +1,8 @@
 <?php
 
 namespace App\models;
-
+// autoload for migrations
+require __DIR__."/../../vendor/autoload.php";
 use Illuminate\Database\Capsule\Manager as Capsule;
 use Illuminate\Database\Eloquent\Model;
 

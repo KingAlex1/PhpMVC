@@ -6,7 +6,6 @@ use App\core\Auth;
 use App\core\Template;
 use App\models\UserModel;
 
-
 class UserPageController extends Template
 {
     public function index()
@@ -20,9 +19,6 @@ class UserPageController extends Template
         $data = $userInfo->toArray();
         $files = UserModel::all();
         $users = $files->toArray();
-//        echo "<pre>";
-//        var_dump($data);
-//        die();
         $this->view->twigLoad('list.php', ["data" => $data, "user" => $users]);
     }
 }

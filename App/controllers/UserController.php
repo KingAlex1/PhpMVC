@@ -107,10 +107,10 @@ class UserController
     {
         $user = UserModel::find($this->request->post('id'));
         $userPic = UserModel::with('files')->get()->where('id', '=',
-        $this->request->post('id'));
+            $this->request->post('id'));
 
-        foreach ($userPic as $key=>$value){
-            foreach ($value['files'] as $item => $i ){
+        foreach ($userPic as $key => $value) {
+            foreach ($value['files'] as $item => $i) {
                 $i->delete();
                 $delPic = $i['image'];
                 echo $delPic;

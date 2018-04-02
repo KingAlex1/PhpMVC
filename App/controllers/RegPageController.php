@@ -19,6 +19,6 @@ class RegPageController extends Template
         $data = $userInfo->toArray();
 
 //        $this->view->render('regUsers.html', []);
-        $this->view->twigLoad('regUsers.html.php', ["data" =>$data]);
+        $this->view->twigLoad('regUsers.html.php', ["data" => $data]);
     }
 }

@@ -21,7 +21,7 @@ class FilePageController extends Template
         $orders = UserModel::with('files')->get()->where('id', '=', $_SESSION['user']);
         $data = $orders->toArray();
 //      $this->view->render('filelist.html', $data);
-        $this->view->twigLoad('filelist.php', ["data" =>$data] );
+        $this->view->twigLoad('filelist.php', ["data" => $data]);
 
     }
 }

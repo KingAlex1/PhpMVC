@@ -26,7 +26,7 @@ class FileController
                 'desc' => $this->request->post('desc'),
                 'image' => ($this->request->file('image')['name'])
             ], ['user_id' => 'required|alpha_numeric',
-                'filename' => 'required|alpha_numeric|max_len,100|min_len,5',
+                'filename' => 'required|alpha_numeric|max_len,100|min_len,4',
                 'desc' => 'required|alpha_numeric|min_len,4',
                 'image' => 'required'
             ]);

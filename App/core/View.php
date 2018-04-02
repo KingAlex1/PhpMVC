@@ -25,6 +25,4 @@ class View
     {
         echo $this->twig->render($filename, $data);
     }
-
-
 }

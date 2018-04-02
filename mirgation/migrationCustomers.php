@@ -15,4 +15,6 @@ Capsule::schema()->create('customers', function (Blueprint $table) {
     $table->integer('age');
     $table->string('description');
     $table->string('photo');
+    $table->string('sold');
+
 });
